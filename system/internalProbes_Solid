@@ -1,0 +1,36 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  8
+     \\/     M anipulation  |
+-------------------------------------------------------------------------------
+Description
+    Writes out values of fields interpolated to a specified list of points.
+
+\*---------------------------------------------------------------------------*/
+
+
+fields (T);
+region solid;
+
+interpolationScheme cellPoint;
+
+/*type            sets;
+libs            ("libsampling.so");
+
+setFormat  raw;*/
+
+points
+(
+    (0.005 0.005 0.009)
+    (0.005 0.005 0.007)
+    (0.005 0.005 0.005)
+    (0.005 0.005 0.003)
+    (0.005 0.005 0.001)
+);
+
+#includeEtc "caseDicts/postProcessing/probes/internalProbes.cfg"
+
+
+// ************************************************************************* //

@@ -1,0 +1,80 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# =========================================
+# 1. Vérification des Prérequis (STL)
+# =========================================
+echo "-----------------------------------"
+echo "1. Vérification de la géométrie..."
+
+if [ ! -f "constant/triSurface/sphere.stl" ]; then
+    echo "ERREUR : Fichier constant/triSurface/sphere.stl introuvable !"
+    echo ">> Veuillez copier les STL depuis Windows avant de lancer."
+    exit 1
+else
+    echo "Fichiers STL détectés."
+fi
+
+# =========================================
+# 2. Maillage (Meshing)
+# =========================================
+echo "-----------------------------------"
+echo "2. Génération du maillage..."
+
+# A. Extraction des features
+runApplication surfaceFeatureExtract
+
+# B. Maillage de fond (Cube)
+runApplication blockMesh
+
+# B. Maillage complexe (Snappy)
+# On écrase le maillage précédent (-overwrite)
+runApplication snappyHexMesh -overwrite
+
+# =========================================
+# 3. Préparation Multi-Régions (CRUCIAL)
+# =========================================
+echo "-----------------------------------"
+echo "3. Séparation des régions (Fluid/Solid)..."
+
+# C'est cette commande qui crée constant/fluid et constant/solid
+# L'option -cellZones utilise les zones définies par snappy
+runApplication splitMeshRegions -cellZones -overwrite
+
+# D. Nettoyage post-split (optionnel mais propre)
+# On supprime le maillage global "null" qui ne sert plus
+rm -rf constant/polyMesh
+
+# E. Gestion des conditions limites (optionnel)
+# Souvent nécessaire pour mapper les BCs correctement après le split
+if [ -f system/changeDictionaryDict ]; then
+    runApplication changeDictionary
+fi
+
+# =========================================
+# 4. Simulation
+# =========================================
+echo "-----------------------------------"
+echo "4. Exécution du solveur..."
+
+# A. Décomposition pour le calcul parallèle (DESACTIVE)
+# runApplication decomposePar -allRegions
+
+# B. Lancement du calcul (chtMultiRegionFoam)
+runApplication $(getApplication)
+
+# =========================================
+# 5. Reconstruction & Fin
+# =========================================
+echo "-----------------------------------"
+echo "5. Post-traitement..."
+
+# On rassemble les résultats des processeurs (DESACTIVE)
+# runApplication reconstructPar -allRegions
+
+echo "-----------------------------------"
+echo "Terminé ! Vous pouvez visualiser avec : paraFoam -builtin"
+echo "-----------------------------------"

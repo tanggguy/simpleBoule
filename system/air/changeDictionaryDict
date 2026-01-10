@@ -1,0 +1,146 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      changeDictionaryDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+U
+{
+    internalField   uniform (0 0 0);
+
+    boundaryField
+    {
+
+        #includeEtc "caseDicts/setConstraintTypes"
+
+        inlet
+        {
+            type            fixedValue;
+            value           uniform ( 0.01 0 0 );
+        }
+
+        outlet
+        {
+            type            inletOutlet;
+            inletValue      uniform ( 0 0 0 );
+            value           uniform ( 0 0 0 );
+        }
+        walls
+        {
+            type            noSlip;
+            value           uniform ( 0 0 0 );
+        }
+
+        ".*"
+        {
+            type            noSlip;
+        }
+        
+        "air_to_.*"
+        {
+            type            noSlip;
+        }
+    }
+}
+
+T
+{
+
+    internalField   uniform 293.15;
+
+    boundaryField
+    {
+        #includeEtc "caseDicts/setConstraintTypes"
+
+        ".*"
+        {
+        	type            zeroGradient;
+        	value           uniform 293.15;
+        }
+        inlet
+        {
+            type                fixedValue;
+            value               uniform 350;
+        }
+
+        outlet
+        {
+        	type            inletOutlet;
+            inletValue      uniform 293.15;
+        	value           uniform 293.15;
+        }
+
+        walls
+        {
+                type            zeroGradient;
+        	value           uniform 293.15;
+        }
+
+        "air_to_.*"
+        {
+            type            compressible::turbulentTemperatureCoupledBaffleMixed;
+            value           uniform 300;
+            Tnbr            T;
+            kappaMethod     fluidThermo;
+        }
+    }
+}
+
+
+p_rgh
+{
+    internalField   uniform 1e5;
+
+    boundaryField
+    {
+        #includeEtc "caseDicts/setConstraintTypes"
+        ".*"
+        {
+            type            fixedFluxPressure;
+            value           uniform 1e5;
+        }
+
+        outlet
+        {
+            type            fixedValue;
+            value           $internalField;
+        }
+    }
+}
+
+p
+{
+    internalField   uniform 1e5;
+
+    boundaryField
+    {
+
+        #includeEtc "caseDicts/setConstraintTypes"
+
+        ".*"
+        {
+            type            calculated;
+            value           uniform 1e5;
+        }
+
+        outlet
+        {
+            type            calculated;
+            value           uniform 1e5;
+        }
+
+    }
+}
+
+// ************************************************************************* //

@@ -1,0 +1,55 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# ========================================================
+# 1. Vérification et Nettoyage
+# ========================================================
+echo "-----------------------------------"
+echo "Nettoyage rapide..."
+./Allclean
+rm -rf constant/polyMesh constant/fluid constant/solid
+rm -rf system/domain* constant/domain* 0/domain* # Au cas où
+
+if [ ! -f "constant/triSurface/sphere.stl" ]; then
+    echo "ERREUR : Fichiers STL manquants dans constant/triSurface/"
+    exit 1
+fi
+
+# ========================================================
+# 2. Maillage
+# ========================================================
+echo "-----------------------------------"
+echo "Maillage (blockMesh + snappy)..."
+
+runApplication blockMesh
+runApplication snappyHexMesh -overwrite
+
+# ========================================================
+# 3. Séparation des Régions
+# ========================================================
+echo "-----------------------------------"
+echo "Séparation des domaines..."
+
+# On garde -largestOnly pour éviter les miettes
+runApplication splitMeshRegions -cellZones -largestOnly -overwrite
+
+# ========================================================
+# 4. Simulation (SÉQUENTIELLE)
+# ========================================================
+echo "-----------------------------------"
+echo "Lancement du calcul (1 Coeur)..."
+
+# Plus de decomposePar !
+# Plus de mpirun !
+# Juste le solveur direct :
+runApplication chtMultiRegionFoam
+
+# ========================================================
+# 5. Fin
+# ========================================================
+# Plus de reconstructPar non plus ! Les résultats sont directement là.
+echo "-----------------------------------"
+echo "Terminé."

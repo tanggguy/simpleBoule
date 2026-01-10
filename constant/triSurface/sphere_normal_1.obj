@@ -1,0 +1,17 @@
+# Wavefront OBJ file written 2026-01-10T19:22:42
+o sphere_normal_1
+
+# points : 2
+# faces  : 1
+# zones  : 1
+#   0  solid  (nFaces: 1)
+
+# <points count="2">
+v 0.005 0.005 0.001
+v 0.00488881 0.005 0.00100155
+# </points>
+
+# <faces count="1">
+g solid
+f 2 1 1
+# </faces>
