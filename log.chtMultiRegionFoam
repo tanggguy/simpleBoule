@@ -9,9 +9,9 @@ Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
 Arch   : "LSB;label=32;scalar=64"
 Exec   : chtMultiRegionFoam
 Date   : Jan 10 2026
-Time   : 21:06:05
+Time   : 21:19:05
 Host   : tanguy-VMware-Virtual-Platform
-PID    : 17294
+PID    : 18754
 I/O    : uncollated
 Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
 nProcs : 1
@@ -30,13 +30,88 @@ Create solid mesh for region solid for time = 0
 
     Adding to thermoFluid
 
+Selecting thermodynamics package 
+{
+    type            heRhoThermo;
+    mixture         pureMixture;
+    transport       const;
+    thermo          hConst;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+
+--> FOAM Warning : 
+    From Foam::compressible::turbulentTemperatureCoupledBaffleMixedFvPatchScalarField::turbulentTemperatureCoupledBaffleMixedFvPatchScalarField(const Foam::fvPatch&, const Foam::DimensionedField<double, Foam::volMesh>&, const Foam::dictionary&)
+    in file derivedFvPatchFields/turbulentTemperatureCoupledBaffleMixed/turbulentTemperatureCoupledBaffleMixedFvPatchScalarField.C at line 119
+    This BC has been superseded by compressible::turbulentTemperatureRadCoupledMixed which has more functionalities and it can handle the assemble coupled option for energy. 
+    Adding to rhoFluid
+
+    Adding to UFluid
+
+    Adding to phiFluid
+
+    Adding to hRefFluid
+
+    Adding to ghFluid
+
+    Adding to ghfFluid
+
+    Adding to turbulenceFluid
+
+Selecting turbulence model type laminar
+Selecting laminar stress model Stokes
+    Adding to reactionFluid
+
+Combustion model not active: combustionProperties not found
+Selecting combustion model none
+    Adding to radiationFluid
+
+Radiation model not active: radiationProperties not found
+Selecting radiationModel none
+    Adding to KFluid
+
+    Adding to dpdtFluid
+
+    Adding to fieldsFluid
+
+    Adding to QdotFluid
+
+    Adding MRF
+
+No MRF models present
+
+    Adding fvOptions
+
+*** Reading solid mesh thermophysical properties for region solid
+
+    Adding to thermos
+
+Selecting thermodynamics package 
+{
+    type            heSolidThermo;
+    mixture         pureMixture;
+    transport       constIso;
+    thermo          hConst;
+    equationOfState rhoConst;
+    specie          specie;
+    energy          sensibleEnthalpy;
+}
+
+--> FOAM Warning : 
+    From Foam::compressible::turbulentTemperatureCoupledBaffleMixedFvPatchScalarField::turbulentTemperatureCoupledBaffleMixedFvPatchScalarField(const Foam::fvPatch&, const Foam::DimensionedField<double, Foam::volMesh>&, const Foam::dictionary&)
+    in file derivedFvPatchFields/turbulentTemperatureCoupledBaffleMixed/turbulentTemperatureCoupledBaffleMixedFvPatchScalarField.C at line 119
+    This BC has been superseded by compressible::turbulentTemperatureRadCoupledMixed which has more functionalities and it can handle the assemble coupled option for energy. 
 
 
---> FOAM FATAL ERROR: (openfoam-2506)
-cannot find file "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/constant/air/thermophysicalProperties"
+--> FOAM FATAL IO ERROR: (openfoam-2506)
+Entry 'thermodynamics' not found in dictionary "constant/solid/thermophysicalProperties/mixture"
 
-    From virtual Foam::autoPtr<Foam::ISstream> Foam::fileOperations::uncollatedFileOperation::readStream(Foam::regIOobject&, const Foam::fileName&, const Foam::word&, bool) const
-    in file global/fileOperations/uncollatedFileOperation/uncollatedFileOperation.C at line 629.
+
+file: constant/solid/thermophysicalProperties/mixture at line 32 to 45.
+
+    From const Foam::dictionary& Foam::dictionary::subDict(const Foam::word&, Foam::keyType::option) const
+    in file db/dictionary/dictionary.C at line 457.
 
 FOAM exiting
 

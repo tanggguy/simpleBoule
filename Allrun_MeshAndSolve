@@ -40,6 +40,7 @@ runApplication splitMeshRegions -cellZones -overwrite
 echo "Copie des propriétés thermiques du solide..."
 cp constant/thermophysicalProperties.solid constant/solid/thermophysicalProperties
 cp constant/thermophysicalProperties.air constant/air/thermophysicalProperties
+cp constant/turbulenceProperties.air constant/air/turbulenceProperties
 
 # =============
 

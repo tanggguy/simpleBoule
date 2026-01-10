@@ -9,9 +9,9 @@ Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
 Arch   : "LSB;label=32;scalar=64"
 Exec   : splitMeshRegions -cellZones -overwrite
 Date   : Jan 10 2026
-Time   : 21:06:04
+Time   : 21:19:04
 Host   : tanguy-VMware-Virtual-Platform
-PID    : 17291
+PID    : 18750
 I/O    : uncollated
 Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
 nProcs : 1
