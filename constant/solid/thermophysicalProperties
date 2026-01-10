@@ -35,7 +35,7 @@ mixture
     {
         kappa       237;  // Conductivité thermique [W/m/K]
     }
-    thermo
+    thermodynamics
     {
         Cp          900;  // Capacité thermique [J/kg/K]
         Hf          0;

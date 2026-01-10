@@ -68,7 +68,8 @@ Bash
 ./Allrun_MeshAndSolve
 tail -f log.
 paraFoam
-
+touch air.foam
+touch solid.foam
 Le script exécute : blockMesh > snappyHexMesh > splitMeshRegions > chtMultiRegionFoam.
 
 3. Hypothèse de Simulation

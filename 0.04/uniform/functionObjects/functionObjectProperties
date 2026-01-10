@@ -1,0 +1,95 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2506                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       dictionary;
+    location    "0.04/uniform/functionObjects";
+    object      functionObjectProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+cdf7e925f5746741c316f5fbcf39ad0dfca90775
+{
+    T_Average_inlet
+    {
+        scalar
+        {
+            areaAverage(inlet,T) 293.1499999999999;
+        }
+    }
+    T_Average_outlet
+    {
+        scalar
+        {
+            areaAverage(outlet,T) 273.1499999999995;
+        }
+    }
+    air_residuals
+    {
+        scalar
+        {
+            Ux_initial      0.00508396;
+            Ux_final        3.53156e-08;
+            Uy_initial      0.0085749;
+            Uy_final        6.60197e-08;
+            Uz_initial      0.00495994;
+            Uz_final        4.13399e-08;
+            h_initial       0.00694899;
+            h_final         2.22009e-08;
+            p_rgh_initial   0.00591245;
+            p_rgh_final     5.29303e-05;
+            rho_initial     0;
+            rho_final       0;
+        }
+        label
+        {
+            Ux_iters        3;
+            Uy_iters        3;
+            Uz_iters        3;
+            h_iters         4;
+            p_rgh_iters     20;
+            rho_iters       0;
+        }
+    }
+    solid_residuals
+    {
+        scalar
+        {
+            h_initial       0.0339129;
+            h_final         4.80499e-07;
+        }
+        label
+        {
+            h_iters         14;
+        }
+    }
+    HeatFlux_air
+    {
+        scalar
+        {
+            min(air_to_solid) -400.1844864879976;
+            max(air_to_solid) 320.800799221084;
+            int(air_to_solid) -0.05208990158111453;
+        }
+    }
+    HeatFlux_solid
+    {
+        scalar
+        {
+            min(solid_to_air) -320.8085913279556;
+            max(solid_to_air) 400.1609019497747;
+            int(solid_to_air) 0.05208369917800085;
+        }
+    }
+}
+
+
+// ************************************************************************* //

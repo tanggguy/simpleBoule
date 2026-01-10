@@ -24,14 +24,13 @@ boundaryField
     inlet
     {
         type            fixedValue;
-        value           uniform 300;
+        value           uniform 293.15;
     }
 
     outlet
     {
-        type            inletOutlet;
-        inletValue      uniform 300;
-        value           uniform 300;
+        type            fixedValue;
+        value           uniform 273.15;
     }
 
     walls
