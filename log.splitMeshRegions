@@ -7,11 +7,11 @@
 \*---------------------------------------------------------------------------*/
 Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
 Arch   : "LSB;label=32;scalar=64"
-Exec   : splitMeshRegions -cellZones -largestOnly -overwrite
+Exec   : splitMeshRegions -cellZones -overwrite
 Date   : Jan 10 2026
-Time   : 20:20:43
+Time   : 21:06:04
 Host   : tanguy-VMware-Virtual-Platform
-PID    : 10469
+PID    : 17291
 I/O    : uncollated
 Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
 nProcs : 1
@@ -63,7 +63,8 @@ For interface between region air and solid added patches
     3	air_to_solid
     4	solid_to_air
 
-Subsetting region 0 of size 67240 as named region air
+Region 0
+-------- 
 Creating mesh for region 0 air
 Mapping fields
 Mapping field cellToRegion
@@ -74,5 +75,18 @@ Writing map pointRegionAddressing from region0 points back to base mesh.
 Writing map faceRegionAddressing from region0 faces back to base mesh.
 Writing map cellRegionAddressing from region0 cells back to base mesh.
 Writing map boundaryRegionAddressing from region0 boundary back to base mesh.
+
+Region 1
+-------- 
+Creating mesh for region 1 solid
+Mapping fields
+Mapping field cellToRegion
+Deleting empty patches
+Writing new mesh
+Writing addressing to base mesh
+Writing map pointRegionAddressing from region1 points back to base mesh.
+Writing map faceRegionAddressing from region1 faces back to base mesh.
+Writing map cellRegionAddressing from region1 cells back to base mesh.
+Writing map boundaryRegionAddressing from region1 boundary back to base mesh.
 End
 

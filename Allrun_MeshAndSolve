@@ -10,7 +10,7 @@ cd ${0%/*} || exit 1    # Run from this directory
 echo "-----------------------------------"
 echo "Nettoyage rapide..."
 ./Allclean
-rm -rf constant/polyMesh constant/fluid constant/solid
+rm -rf constant/polyMesh constant/air constant/solid
 rm -rf system/domain* constant/domain* 0/domain* # Au cas où
 
 if [ ! -f "constant/triSurface/sphere.stl" ]; then
@@ -33,14 +33,21 @@ runApplication snappyHexMesh -overwrite
 echo "-----------------------------------"
 echo "Séparation des domaines..."
 
-# On garde -largestOnly pour éviter les miettes
-runApplication splitMeshRegions -cellZones -largestOnly -overwrite
+
+runApplication splitMeshRegions -cellZones -overwrite
+
+# === AJOUT ===
+echo "Copie des propriétés thermiques du solide..."
+cp constant/thermophysicalProperties.solid constant/solid/thermophysicalProperties
+cp constant/thermophysicalProperties.air constant/air/thermophysicalProperties
+
+# =============
 
 # ========================================================
-# 4. Simulation (SÉQUENTIELLE)
+# 4. Simulation 
 # ========================================================
 echo "-----------------------------------"
-echo "Lancement du calcul (1 Coeur)..."
+echo "Lancement du calcul..."
 
 # Plus de decomposePar !
 # Plus de mpirun !

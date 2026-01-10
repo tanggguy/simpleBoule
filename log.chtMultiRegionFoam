@@ -9,9 +9,9 @@ Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
 Arch   : "LSB;label=32;scalar=64"
 Exec   : chtMultiRegionFoam
 Date   : Jan 10 2026
-Time   : 20:20:43
+Time   : 21:06:05
 Host   : tanguy-VMware-Virtual-Platform
-PID    : 10470
+PID    : 17294
 I/O    : uncollated
 Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
 nProcs : 1
@@ -26,13 +26,17 @@ Create fluid mesh for region air for time = 0
 
 Create solid mesh for region solid for time = 0
 
+*** Reading fluid mesh thermophysical properties for region air
+
+    Adding to thermoFluid
+
 
 
 --> FOAM FATAL ERROR: (openfoam-2506)
-Cannot find file "points" in directory "solid/polyMesh" in times "0" down to constant
+cannot find file "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/constant/air/thermophysicalProperties"
 
-    From virtual Foam::IOobject Foam::fileOperation::findInstance(const Foam::IOobject&, Foam::scalar, const Foam::word&, bool) const
-    in file global/fileOperations/fileOperation/fileOperation.C at line 1225.
+    From virtual Foam::autoPtr<Foam::ISstream> Foam::fileOperations::uncollatedFileOperation::readStream(Foam::regIOobject&, const Foam::fileName&, const Foam::word&, bool) const
+    in file global/fileOperations/uncollatedFileOperation/uncollatedFileOperation.C at line 629.
 
 FOAM exiting
 
