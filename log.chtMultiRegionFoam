@@ -9,9 +9,9 @@ Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
 Arch   : "LSB;label=32;scalar=64"
 Exec   : chtMultiRegionFoam
 Date   : Jan 10 2026
-Time   : 21:19:05
+Time   : 21:28:16
 Host   : tanguy-VMware-Virtual-Platform
-PID    : 18754
+PID    : 19480
 I/O    : uncollated
 Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
 nProcs : 1
@@ -59,59 +59,16 @@ Selecting thermodynamics package
 
     Adding to turbulenceFluid
 
-Selecting turbulence model type laminar
-Selecting laminar stress model Stokes
-    Adding to reactionFluid
-
-Combustion model not active: combustionProperties not found
-Selecting combustion model none
-    Adding to radiationFluid
-
-Radiation model not active: radiationProperties not found
-Selecting radiationModel none
-    Adding to KFluid
-
-    Adding to dpdtFluid
-
-    Adding to fieldsFluid
-
-    Adding to QdotFluid
-
-    Adding MRF
-
-No MRF models present
-
-    Adding fvOptions
-
-*** Reading solid mesh thermophysical properties for region solid
-
-    Adding to thermos
-
-Selecting thermodynamics package 
-{
-    type            heSolidThermo;
-    mixture         pureMixture;
-    transport       constIso;
-    thermo          hConst;
-    equationOfState rhoConst;
-    specie          specie;
-    energy          sensibleEnthalpy;
-}
-
---> FOAM Warning : 
-    From Foam::compressible::turbulentTemperatureCoupledBaffleMixedFvPatchScalarField::turbulentTemperatureCoupledBaffleMixedFvPatchScalarField(const Foam::fvPatch&, const Foam::DimensionedField<double, Foam::volMesh>&, const Foam::dictionary&)
-    in file derivedFvPatchFields/turbulentTemperatureCoupledBaffleMixed/turbulentTemperatureCoupledBaffleMixedFvPatchScalarField.C at line 119
-    This BC has been superseded by compressible::turbulentTemperatureRadCoupledMixed which has more functionalities and it can handle the assemble coupled option for energy. 
 
 
 --> FOAM FATAL IO ERROR: (openfoam-2506)
-Entry 'thermodynamics' not found in dictionary "constant/solid/thermophysicalProperties/mixture"
+Entry 'simulationType' not found in dictionary "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/constant/air/turbulenceProperties"
 
 
-file: constant/solid/thermophysicalProperties/mixture at line 32 to 45.
+file: constant/air/turbulenceProperties at line 19 to 45.
 
-    From const Foam::dictionary& Foam::dictionary::subDict(const Foam::word&, Foam::keyType::option) const
-    in file db/dictionary/dictionary.C at line 457.
+    From bool Foam::dictionary::readEntry(const Foam::word&, T&, Foam::keyType::option, Foam::IOobjectOption::readOption) const [with T = Foam::word]
+    in file ./src/OpenFOAM/lnInclude/dictionaryTemplates.C at line 327.
 
 FOAM exiting
 
