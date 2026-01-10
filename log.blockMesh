@@ -1,0 +1,107 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2506                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
+Arch   : "LSB;label=32;scalar=64"
+Exec   : blockMesh
+Date   : Jan 10 2026
+Time   : 23:24:13
+Host   : tanguy-VMware-Virtual-Platform
+PID    : 25580
+I/O    : uncollated
+Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Creating block mesh from "system/blockMeshDict"
+Using #calc - line 32 in file "system/blockMeshDict"
+Using #codeStream with "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so"
+Could not load "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so"
+/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so: cannot open shared object file: No such file or directory
+Creating new library in "dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so"
+Invoking wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca
+wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca
+    ln: ./lnInclude
+    dep: codeStreamTemplate.C
+    Ctoo: codeStreamTemplate.C
+    link: /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca/../platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so
+Using #calc - line 33 in file "system/blockMeshDict"
+Using #calc - line 34 in file "system/blockMeshDict"
+Using #calc - line 36 in file "system/blockMeshDict"
+Using #codeStream with "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so"
+Could not load "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so"
+/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so: cannot open shared object file: No such file or directory
+Creating new library in "dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so"
+Invoking wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc
+wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc
+    ln: ./lnInclude
+    dep: codeStreamTemplate.C
+    Ctoo: codeStreamTemplate.C
+    link: /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc/../platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so
+Using #calc - line 37 in file "system/blockMeshDict"
+Using #calc - line 38 in file "system/blockMeshDict"
+--> FOAM IOWarning :
+    Found [v1012] 'convertToMeters' entry instead of 'scale' in dictionary "system/blockMeshDict"
+
+    This keyword is 174 months old.
+
+Creating block edges
+No non-planar block faces defined
+Creating topology blocks
+
+Creating topology patches - from boundary section
+
+Creating block mesh topology
+--> FOAM Warning : 
+    From Foam::polyMesh::polyMesh(const Foam::IOobject&, Foam::pointField&&, const Foam::cellShapeList&, const Foam::faceListList&, const Foam::wordList&, const Foam::PtrList<Foam::dictionary>&, const Foam::word&, const Foam::word&, bool)
+    in file meshes/polyMesh/polyMeshFromShapeMesh.C at line 905
+    Found 6 undefined faces in mesh; adding to default patch default
+
+Check topology
+
+	Basic statistics
+		Number of internal faces : 0
+		Number of boundary faces : 6
+		Number of defined boundary faces : 6
+		Number of undefined boundary faces : 0
+	Checking patch -> block consistency
+
+Creating block offsets
+Creating merge list (topological search)...
+
+Creating polyMesh from blockMesh
+Creating patches
+Creating cells
+Creating points with scale (1 1 1)
+    Block 0 cell size :
+        i : 0.0005 .. 0.0005
+        j : 0.0005 .. 0.0005
+        k : 0.0005 .. 0.0005
+
+No patch pairs to merge
+
+Writing polyMesh with 0 cellZones
+----------------
+Mesh Information
+----------------
+  boundingBox: (-0.001 -0.001 -0.001) (0.011 0.011 0.011)
+  nPoints: 15625
+  nCells: 13824
+  nFaces: 43200
+  nInternalFaces: 39744
+----------------
+Patches
+----------------
+  patch 0 (start: 39744 size: 3456) name: default
+
+End
+

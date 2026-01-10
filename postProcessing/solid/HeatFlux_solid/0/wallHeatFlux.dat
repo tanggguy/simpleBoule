@@ -1,0 +1,8 @@
+# Wall heat-flux
+# Time        	patch         	min           	max           	integral      
+5             	solid_to_air	-3.047626e+02	2.996168e+02	-2.711096e-04
+10            	solid_to_air	-3.046992e+02	2.996787e+02	-2.664969e-04
+15            	solid_to_air	-3.046368e+02	2.997395e+02	-2.619637e-04
+20            	solid_to_air	-3.045754e+02	2.997993e+02	-2.575072e-04
+25            	solid_to_air	-3.045151e+02	2.998581e+02	-2.531267e-04
+30            	solid_to_air	-3.044559e+02	2.999159e+02	-2.488210e-04

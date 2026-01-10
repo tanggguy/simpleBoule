@@ -18,7 +18,7 @@ castellatedMesh on;
 
 snap            on;
 
-addLayers       on;
+addLayers       off; //on
 
 castellatedMeshControls
 {
@@ -34,7 +34,7 @@ castellatedMeshControls
     {
         sphere
         {
-            level           ( 2 2 );
+            level           ( 1 1 );//(2 2)
             faceZone        sphere_surface;
             cellZone        solid;
             cellZoneInside  insidePoint;
