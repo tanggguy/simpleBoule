@@ -29,20 +29,20 @@ mixture
 {
     specie
     {
-        molWeight   26.98;
+        molWeight   250;
     }
     transport
     {
-        kappa       237;  // Conductivité thermique [W/m/K]
+        kappa       0.03;  // Conductivité thermique [W/m/K]
     }
     thermodynamics
     {
-        Cp          900;  // Capacité thermique [J/kg/K]
+        Cp          1500;  // Capacité thermique [J/kg/K]
         Hf          0;
     }
     equationOfState
     {
-        rho         2700; // Masse volumique [kg/m^3]
+        rho         60; // Masse volumique [kg/m^3]
     }
 }
 

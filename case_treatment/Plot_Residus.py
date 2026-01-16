@@ -148,7 +148,7 @@ plt.clf()
 
 
 
-#plt.show()
+plt.show()
 
 
 
