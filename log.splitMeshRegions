@@ -8,10 +8,10 @@
 Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
 Arch   : "LSB;label=32;scalar=64"
 Exec   : splitMeshRegions -cellZones -overwrite
-Date   : Jan 10 2026
-Time   : 23:24:27
+Date   : Jan 16 2026
+Time   : 18:41:51
 Host   : tanguy-VMware-Virtual-Platform
-PID    : 26008
+PID    : 13355
 I/O    : uncollated
 Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
 nProcs : 1
@@ -29,7 +29,7 @@ Creating single patch per inter-region interface.
 Trying to match regions to existing cell zones.
 
 
-Number of regions:2
+Number of regions:1
 
 Writing region per cell file (for manual decomposition) to "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/constant/cellToRegion"
 
@@ -37,56 +37,19 @@ Writing region per cell as volScalarField to "/home/tanguy/OpenFOAM/tanguy-v2506
 
 Region	Cells
 ------	-----
-0	18373
-1	10270
+0	17576
 
 Region	Zone	Name
 ------	----	----
-0	(1)	air
-1	(0)	solid
+0	()	domain0
 
 Sizes of interfaces between regions:
 
 Interface	Region	Region	Faces
 ---------	------	------	-----
-0		0	1	4872
 
 Reading volScalarField: cellToRegion
 
-
-Adding patches
-
-
-Adding patches
-
-For interface between region air and solid added patches
-    3	air_to_solid
-    4	solid_to_air
-
-Region 0
--------- 
-Creating mesh for region 0 air
-Mapping fields
-Mapping field cellToRegion
-Deleting empty patches
-Writing new mesh
-Writing addressing to base mesh
-Writing map pointRegionAddressing from region0 points back to base mesh.
-Writing map faceRegionAddressing from region0 faces back to base mesh.
-Writing map cellRegionAddressing from region0 cells back to base mesh.
-Writing map boundaryRegionAddressing from region0 boundary back to base mesh.
-
-Region 1
--------- 
-Creating mesh for region 1 solid
-Mapping fields
-Mapping field cellToRegion
-Deleting empty patches
-Writing new mesh
-Writing addressing to base mesh
-Writing map pointRegionAddressing from region1 points back to base mesh.
-Writing map faceRegionAddressing from region1 faces back to base mesh.
-Writing map cellRegionAddressing from region1 cells back to base mesh.
-Writing map boundaryRegionAddressing from region1 boundary back to base mesh.
+Only one region. Doing nothing.
 End
 

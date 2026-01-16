@@ -1,155 +1,150 @@
+import sys
 import salome
 import math
+import os
 
 salome.salome_init()
 from salome.geom import geomBuilder
 
 geompy = geomBuilder.New()
 
-# 1. Parameters
+# ==========================================
+# 1. Paramètres
+# ==========================================
 L_cube = 0.01
 R_sphere = 0.004
 Center = L_cube / 2.0
+epaisseur_Box_Walls = 0.001
 
-# 2. Create Sphere (Solid Region)
-# Center at (0.005, 0.005, 0.005)
+# ==========================================
+# 2. Création de la Sphère (Solide)
+# ==========================================
 Solid_Sphere = geompy.MakeSphereR(R_sphere)
 geompy.TranslateDXDYDZ(Solid_Sphere, Center, Center, Center)
 geompy.addToStudy(Solid_Sphere, "Solid_Sphere")
 
-# 3. Create Box (Fluid Domain Boundaries)
-# From (0,0,0) to (0.01, 0.01, 0.01)
+# ==========================================
+# 3. Création de la Boîte (Domaine Fluide)
+# ==========================================
 Fluid_Domain = geompy.MakeBoxDXDYDZ(L_cube, L_cube, L_cube)
 geompy.addToStudy(Fluid_Domain, "Fluid_Domain")
 
-# 4. Create Groups on Box (Patches)
-# Inlet: Face X = 0
-inlet_faces = geompy.GetShapesOnPlaneWithNormal(Fluid_Domain, geompy.ShapeType["FACE"], 
-                                                geompy.MakeVectorDXDYDZ(1, 0, 0), 
-                                                geompy.MakeVertex(0, 0, 0))
-inlet = geompy.CreateGroup(Fluid_Domain, geompy.ShapeType["FACE"])
-geompy.UnionList(inlet, inlet_faces)
-geompy.addToStudyInFather(Fluid_Domain, inlet, "inlet")
+# ==========================================
+# 4. Création des Murs (Boîtes solides)
+# ==========================================
 
-# Outlet: Face X = L_cube
-outlet_faces = geompy.GetShapesOnPlaneWithNormal(Fluid_Domain, geompy.ShapeType["FACE"], 
-                                                 geompy.MakeVectorDXDYDZ(1, 0, 0), 
-                                                 geompy.MakeVertex(L_cube, 0, 0))
-outlet = geompy.CreateGroup(Fluid_Domain, geompy.ShapeType["FACE"])
-geompy.UnionList(outlet, outlet_faces)
-geompy.addToStudyInFather(Fluid_Domain, outlet, "outlet")
+# --- Mur X_min (Côté Inlet) ---
+# Dimensions : épaisseur en X
+box_walls_xmin = geompy.MakeBoxDXDYDZ(epaisseur_Box_Walls, L_cube, L_cube)
+# On le recule pour qu'il touche X=0 (de -epaisseur à 0)
+geompy.TranslateDXDYDZ(box_walls_xmin, -epaisseur_Box_Walls, 0, 0)
+geompy.addToStudy(box_walls_xmin, "box_walls_xmin")
 
-# Walls: All other faces (Y=0, Y=L, Z=0, Z=L)
-# We can get all faces and remove inlet/outlet, or select them explicitly.
-# Explicit selection is safer.
-wall_faces = []
-# Y=0
-wall_faces.extend(geompy.GetShapesOnPlaneWithNormal(Fluid_Domain, geompy.ShapeType["FACE"], 
-                                                    geompy.MakeVectorDXDYDZ(0, 1, 0), 
-                                                    geompy.MakeVertex(0, 0, 0)))
-# Y=L
-wall_faces.extend(geompy.GetShapesOnPlaneWithNormal(Fluid_Domain, geompy.ShapeType["FACE"], 
-                                                    geompy.MakeVectorDXDYDZ(0, 1, 0), 
-                                                    geompy.MakeVertex(0, L_cube, 0)))
-# Z=0
-wall_faces.extend(geompy.GetShapesOnPlaneWithNormal(Fluid_Domain, geompy.ShapeType["FACE"], 
-                                                    geompy.MakeVectorDXDYDZ(0, 0, 1), 
-                                                    geompy.MakeVertex(0, 0, 0)))
-# Z=L
-wall_faces.extend(geompy.GetShapesOnPlaneWithNormal(Fluid_Domain, geompy.ShapeType["FACE"], 
-                                                    geompy.MakeVectorDXDYDZ(0, 0, 1), 
-                                                    geompy.MakeVertex(0, 0, L_cube)))
-
-walls = geompy.CreateGroup(Fluid_Domain, geompy.ShapeType["FACE"])
-geompy.UnionList(walls, wall_faces)
-geompy.addToStudyInFather(Fluid_Domain, walls, "walls")
+# --- Mur X_max (Côté Outlet) ---
+# Dimensions : épaisseur en X
+box_walls_xmax = geompy.MakeBoxDXDYDZ(epaisseur_Box_Walls, L_cube, L_cube)
+# On l'avance pour qu'il commence à L (de L à L+epaisseur)
+geompy.TranslateDXDYDZ(box_walls_xmax, L_cube, 0, 0)
+geompy.addToStudy(box_walls_xmax, "box_walls_xmax")
 
 
-# 5. Export STL
-# Ensure directory exists (handled by user/system usually, but good to note)
-# Export Solid Sphere
-geompy.ExportSTL(Solid_Sphere, "../constant/triSurface/sphere.stl", True, 1e-5, True)
+# ==========================================
+# 5. Création des Groupes (5 faces dans Walls)
+# ==========================================
+def get_face_at(shape, x, y, z):
+    p = geompy.MakeVertex(x, y, z)
+    return geompy.GetFaceNearPoint(shape, p)
 
-# Export Fluid Domain with Patches
-# We export the groups as separate STLs or the whole domain? 
-# snappyHexMesh usually likes separate STLs for patches if we want to name them, 
-# OR a single STL with named regions (ASCII STL with "solid name").
-# Salome ExportSTL exports the shape. If we want named patches in one file, it's tricky with basic ExportSTL.
-# Standard OpenFOAM workflow with Salome often involves exporting each group to a separate STL file, 
-# or using a script to combine them.
-# However, the requirements say:
-# "Fichier 2 : La Boîte ... contenant les groupes inlet, outlet, walls"
-# "Chemin : ../constant/triSurface/box_walls.stl"
-# If we export the box, it's just a box. 
-# Let's export the groups individually and also the full box if needed, 
-# BUT the prompt implies a single file for the box patches?
-# Actually, snappyHexMesh can read a multi-solid STL. 
-# Let's export individual patch files for clarity and robustness with snappy, 
-# OR try to merge them. 
-# Given the requirement "box_walls.stl", let's try to export the groups into one file if possible,
-# or just export the groups separately and let the user/snappy handle it.
-# BUT, looking at the previous script `__MAIN__Geom_salome.py`, it used `sed` to rename the solid in the STL.
-# Let's follow that pattern or a cleaner one.
-# The requirement says "Fichier 2 ... box_walls.stl".
-# If I export `Fluid_Domain`, it won't have the patch names in the STL solid names by default.
-# I will export the groups separately to be safe and standard, 
-# AND I will also create a combined `box_walls.stl` if that's strictly what's asked, 
-# but usually `snappyHexMesh` prefers `inlet.stl`, `outlet.stl`, `walls.stl` if we want to define patches easily.
-# Wait, `snappyHexMeshDict` can take one STL with multiple regions.
-# Let's export the groups to separate files first, as it is easier to manage.
-# Re-reading requirement: "Fichier 2 : La Boîte ... Chemin : ../constant/triSurface/box_walls.stl"
-# Maybe it implies a single file. 
-# I will export `inlet`, `outlet`, `walls` to `box_walls.stl` by appending? Salome doesn't do append easily.
-# I will export them as `box_inlet.stl`, `box_outlet.stl`, `box_walls.stl` (for the walls part).
-# Actually, let's stick to the plan:
-# "geometry { ... box_walls.stl { type triSurfaceMesh; name box_walls; regions { inlet { name inlet; } ... } } }"
-# This implies `box_walls.stl` contains solids named `inlet`, `outlet`, `walls`.
-# I can achieve this by exporting separate files and concatenating them, or using a helper.
-# Since I cannot easily run `cat` inside the python script without OS calls (which is fine),
-# I will export separate files: `box_inlet.stl`, `box_outlet.stl`, `box_walls_faces.stl`.
-# Then I will use python to concatenate them into `box_walls.stl` with proper solid names.
+# --- GROUPE INLET (1 face) ---
+# Face tout à gauche (externe) : X = -epaisseur
+face_inlet = get_face_at(box_walls_xmin, -epaisseur_Box_Walls, Center, Center)
+inlet = geompy.CreateGroup(box_walls_xmin, geompy.ShapeType["FACE"])
+geompy.UnionList(inlet, [face_inlet])
+geompy.addToStudyInFather(box_walls_xmin, inlet, "inlet")
 
-import os
+# --- GROUPE WALLS XMIN (5 faces) ---
+faces_xmin_walls = [
+    # Les 4 côtés (on vise le milieu de l'épaisseur du mur)
+    get_face_at(box_walls_xmin, -epaisseur_Box_Walls/2, 0, Center),       # Y=0
+    get_face_at(box_walls_xmin, -epaisseur_Box_Walls/2, L_cube, Center),  # Y=L
+    get_face_at(box_walls_xmin, -epaisseur_Box_Walls/2, Center, 0),       # Z=0
+    get_face_at(box_walls_xmin, -epaisseur_Box_Walls/2, Center, L_cube),  # Z=L
+    # La 5ème face (Interne, contact fluide) : X = 0
+    get_face_at(box_walls_xmin, 0, Center, Center)                        # X=0
+]
+walls_xmin = geompy.CreateGroup(box_walls_xmin, geompy.ShapeType["FACE"])
+geompy.UnionList(walls_xmin, faces_xmin_walls)
+geompy.addToStudyInFather(box_walls_xmin, walls_xmin, "walls_xmin")
 
-tri_surface_dir = "../constant/triSurface"
+
+# --- GROUPE OUTLET (1 face) ---
+# Face tout à droite (externe) : X = L + epaisseur
+face_outlet = get_face_at(box_walls_xmax, L_cube + epaisseur_Box_Walls, Center, Center)
+outlet = geompy.CreateGroup(box_walls_xmax, geompy.ShapeType["FACE"])
+geompy.UnionList(outlet, [face_outlet])
+geompy.addToStudyInFather(box_walls_xmax, outlet, "outlet")
+
+# --- GROUPE WALLS XMAX (5 faces) ---
+faces_xmax_walls = [
+    # Les 4 côtés
+    get_face_at(box_walls_xmax, L_cube + epaisseur_Box_Walls/2, 0, Center),       # Y=0
+    get_face_at(box_walls_xmax, L_cube + epaisseur_Box_Walls/2, L_cube, Center),  # Y=L
+    get_face_at(box_walls_xmax, L_cube + epaisseur_Box_Walls/2, Center, 0),       # Z=0
+    get_face_at(box_walls_xmax, L_cube + epaisseur_Box_Walls/2, Center, L_cube),  # Z=L
+    # La 5ème face (Interne, contact fluide) : X = L
+    get_face_at(box_walls_xmax, L_cube, Center, Center)                           # X=L
+]
+walls_xmax = geompy.CreateGroup(box_walls_xmax, geompy.ShapeType["FACE"])
+geompy.UnionList(walls_xmax, faces_xmax_walls)
+geompy.addToStudyInFather(box_walls_xmax, walls_xmax, "walls_xmax")
+
+
+# ==========================================
+# 6. Export STL
+# ==========================================
+tri_surface_dir = os.path.abspath("../constant/triSurface")
 if not os.path.exists(tri_surface_dir):
-    os.makedirs(tri_surface_dir)
+    try:
+        os.makedirs(tri_surface_dir)
+    except OSError:
+        pass 
 
-# Export individual patches
-file_inlet = os.path.join(tri_surface_dir, "box_inlet.stl")
-geompy.ExportSTL(inlet, file_inlet, True, 1e-5, True)
+print(f"Dossier d'export : {tri_surface_dir}")
 
-file_outlet = os.path.join(tri_surface_dir, "box_outlet.stl")
-geompy.ExportSTL(outlet, file_outlet, True, 1e-5, True)
+# 1. Export de la Sphère
+geompy.ExportSTL(Solid_Sphere, os.path.join(tri_surface_dir, "sphere.stl"), True, 1e-5, True)
 
-file_walls = os.path.join(tri_surface_dir, "box_walls_faces.stl")
-geompy.ExportSTL(walls, file_walls, True, 1e-5, True)
+# 2. Export combiné des patchs de la boîte
+files_to_merge = []
 
-# Function to change solid name in STL and read content
-def read_and_rename(filename, new_name):
-    with open(filename, 'r') as f:
+def export_temp(shape, solid_name, temp_filename):
+    fname = os.path.join(tri_surface_dir, temp_filename)
+    geompy.ExportSTL(shape, fname, True, 1e-5, True)
+    return (fname, solid_name)
+
+# On ajoute tous les morceaux
+files_to_merge.append(export_temp(inlet, "inlet", "tmp_inlet.stl"))
+files_to_merge.append(export_temp(outlet, "outlet", "tmp_outlet.stl"))
+# Ici, on regroupe les deux ensembles de murs sous le nom unique "walls"
+files_to_merge.append(export_temp(walls_xmin, "walls", "tmp_walls_min.stl"))
+files_to_merge.append(export_temp(walls_xmax, "walls", "tmp_walls_max.stl"))
+
+def read_rename_delete(filepath, new_solid_name):
+    with open(filepath, 'r') as f:
         content = f.read()
-    # Replace "solid ..." with "solid new_name"
-    # The first line is "solid <something>"
-    # The last line is "endsolid <something>"
     lines = content.splitlines()
     if lines:
-        lines[0] = f"solid {new_name}"
-        lines[-1] = f"endsolid {new_name}"
+        lines[0] = f"solid {new_solid_name}"
+        lines[-1] = f"endsolid {new_solid_name}"
+    os.remove(filepath)
     return "\n".join(lines) + "\n"
 
-# Concatenate into box_walls.stl
 final_box_file = os.path.join(tri_surface_dir, "box_walls.stl")
 with open(final_box_file, 'w') as outfile:
-    outfile.write(read_and_rename(file_inlet, "inlet"))
-    outfile.write(read_and_rename(file_outlet, "outlet"))
-    outfile.write(read_and_rename(file_walls, "walls"))
+    for fpath, sname in files_to_merge:
+        outfile.write(read_rename_delete(fpath, sname))
 
-# Clean up temporary files
-os.remove(file_inlet)
-os.remove(file_outlet)
-os.remove(file_walls)
+print("Géométrie 'box_walls.stl' générée (inlet + outlet + walls).")
 
-print("Geometry generation complete.")
-print(f"Exported: {os.path.abspath('../constant/triSurface/sphere.stl')}")
-print(f"Exported: {os.path.abspath(final_box_file)}")
+if salome.sg.hasDesktop():
+    salome.sg.updateObjBrowser()

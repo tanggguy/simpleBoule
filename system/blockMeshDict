@@ -17,7 +17,7 @@ FoamFile
 convertToMeters 1;
 
 // Cote du cube [m]
-BoiteCote 0.01;    
+BoiteCote 0.011;    
 
 //  Taille de maille Level 0 suivant x y et z
 lx 0.0005;    

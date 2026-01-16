@@ -50,8 +50,9 @@ Cette configuration permet de calculer la conductivité équivalente $k_{eff}$ v
 │   └── ...
 └── system/
     ├── controlDict          # Pas de temps (mode transient ou steadyState)
-    └── snappyHexMeshDict    # Raffinement niveau 2 ou 3 autour de la sphère
-🚀 Utilisation
+    └── snappyHexMeshDict    # Raffinement niveau 0, 1, 2 ou 3 autour de la sphère
+
+## Utilisation
 1. Génération Géométrie
 Exécuter le script Salome pour créer les STL dans constant/triSurface :
 

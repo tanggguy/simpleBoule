@@ -42,6 +42,9 @@ cp constant/thermophysicalProperties.solid constant/solid/thermophysicalProperti
 cp constant/thermophysicalProperties.air constant/air/thermophysicalProperties
 cp constant/turbulenceProperties.air constant/air/turbulenceProperties
 
+cp constant/thermophysicalProperties.solid_walls_xmin constant/solid_walls_xmin/thermophysicalProperties
+cp constant/thermophysicalProperties.solid_walls_xmax constant/solid_walls_xmax/thermophysicalProperties
+
 # =============
 
 # ========================================================

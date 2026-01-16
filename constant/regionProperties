@@ -18,7 +18,7 @@ FoamFile
 regions
 (
     fluid       (air)
-    solid       (solid)
+    solid       (solid,solid_walls_xmin,solid_walls_xmax)
 );
 
 // ************************************************************************* //

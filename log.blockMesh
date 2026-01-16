@@ -8,10 +8,10 @@
 Build  : _615aae61-20250627 OPENFOAM=2506 version=2506
 Arch   : "LSB;label=32;scalar=64"
 Exec   : blockMesh
-Date   : Jan 10 2026
-Time   : 23:24:13
+Date   : Jan 16 2026
+Time   : 18:41:43
 Host   : tanguy-VMware-Virtual-Platform
-PID    : 25580
+PID    : 12950
 I/O    : uncollated
 Case   : /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule
 nProcs : 1
@@ -24,29 +24,29 @@ Create time
 
 Creating block mesh from "system/blockMeshDict"
 Using #calc - line 32 in file "system/blockMeshDict"
-Using #codeStream with "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so"
-Could not load "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so"
-/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so: cannot open shared object file: No such file or directory
-Creating new library in "dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca/platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so"
-Invoking wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca
-wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca
+Using #codeStream with "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_c6f31806d7ee712f3e3c3468e113851d4ab905f0.so"
+Could not load "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_c6f31806d7ee712f3e3c3468e113851d4ab905f0.so"
+/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_c6f31806d7ee712f3e3c3468e113851d4ab905f0.so: cannot open shared object file: No such file or directory
+Creating new library in "dynamicCode/_c6f31806d7ee712f3e3c3468e113851d4ab905f0/platforms/linux64GccDPInt32Opt/lib/libcodeStream_c6f31806d7ee712f3e3c3468e113851d4ab905f0.so"
+Invoking wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_c6f31806d7ee712f3e3c3468e113851d4ab905f0
+wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_c6f31806d7ee712f3e3c3468e113851d4ab905f0
     ln: ./lnInclude
     dep: codeStreamTemplate.C
     Ctoo: codeStreamTemplate.C
-    link: /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_306cb4bd93333fe468c71908fdcd1765aa854eca/../platforms/linux64GccDPInt32Opt/lib/libcodeStream_306cb4bd93333fe468c71908fdcd1765aa854eca.so
+    link: /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_c6f31806d7ee712f3e3c3468e113851d4ab905f0/../platforms/linux64GccDPInt32Opt/lib/libcodeStream_c6f31806d7ee712f3e3c3468e113851d4ab905f0.so
 Using #calc - line 33 in file "system/blockMeshDict"
 Using #calc - line 34 in file "system/blockMeshDict"
 Using #calc - line 36 in file "system/blockMeshDict"
-Using #codeStream with "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so"
-Could not load "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so"
-/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so: cannot open shared object file: No such file or directory
-Creating new library in "dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc/platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so"
-Invoking wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc
-wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc
+Using #codeStream with "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_4dcb9524a910702be82d1474c91abffbb30aa2bb.so"
+Could not load "/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_4dcb9524a910702be82d1474c91abffbb30aa2bb.so"
+/home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/platforms/linux64GccDPInt32Opt/lib/libcodeStream_4dcb9524a910702be82d1474c91abffbb30aa2bb.so: cannot open shared object file: No such file or directory
+Creating new library in "dynamicCode/_4dcb9524a910702be82d1474c91abffbb30aa2bb/platforms/linux64GccDPInt32Opt/lib/libcodeStream_4dcb9524a910702be82d1474c91abffbb30aa2bb.so"
+Invoking wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_4dcb9524a910702be82d1474c91abffbb30aa2bb
+wmake libso /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_4dcb9524a910702be82d1474c91abffbb30aa2bb
     ln: ./lnInclude
     dep: codeStreamTemplate.C
     Ctoo: codeStreamTemplate.C
-    link: /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc/../platforms/linux64GccDPInt32Opt/lib/libcodeStream_5e9102853fb2223dfd6460e3e8c3b1cdcf52f9bc.so
+    link: /home/tanguy/OpenFOAM/tanguy-v2506/run/simpleBoule/dynamicCode/_4dcb9524a910702be82d1474c91abffbb30aa2bb/../platforms/linux64GccDPInt32Opt/lib/libcodeStream_4dcb9524a910702be82d1474c91abffbb30aa2bb.so
 Using #calc - line 37 in file "system/blockMeshDict"
 Using #calc - line 38 in file "system/blockMeshDict"
 --> FOAM IOWarning :
@@ -93,15 +93,15 @@ Writing polyMesh with 0 cellZones
 ----------------
 Mesh Information
 ----------------
-  boundingBox: (-0.001 -0.001 -0.001) (0.011 0.011 0.011)
-  nPoints: 15625
-  nCells: 13824
-  nFaces: 43200
-  nInternalFaces: 39744
+  boundingBox: (-0.001 -0.001 -0.001) (0.012 0.012 0.012)
+  nPoints: 19683
+  nCells: 17576
+  nFaces: 54756
+  nInternalFaces: 50700
 ----------------
 Patches
 ----------------
-  patch 0 (start: 39744 size: 3456) name: default
+  patch 0 (start: 50700 size: 4056) name: default
 
 End
 

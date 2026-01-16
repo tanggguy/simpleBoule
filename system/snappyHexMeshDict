@@ -34,7 +34,7 @@ castellatedMeshControls
     {
         sphere
         {
-            level           ( 1 1 );//(2 2)
+            level           ( 0 0 );//(2 2)
             faceZone        sphere_surface;
             cellZone        solid;
             cellZoneInside  insidePoint;
@@ -71,11 +71,60 @@ castellatedMeshControls
                 }
             }
         }
+        solid_walls_xmin
+        {
+            level           ( 0 0 );
+            regions
+            {
+                inlet
+                {
+                    level           ( 0 0 );
+                    patchInfo
+                    {
+                        type            patch;
+                    }
+                }
+                
+                walls_xmin
+                {
+                    level           ( 0 0 );
+                    patchInfo
+                    {
+                        type            patch;
+                    }
+                }
+            }
+        }
+        solid_walls_xmax
+        solid_walls_xmin
+        {
+            level           ( 0 0 );
+            regions
+            {
+                outlet
+                {
+                    level           ( 0 0 );
+                    patchInfo
+                    {
+                        type            patch;
+                    }
+                }
+                
+                walls_xmax
+                {
+                    level           ( 0 0 );
+                    patchInfo
+                    {
+                        type            patch;
+                    }
+                }
+            }
+        }
     }
     refinementRegions
     {
     }
-    locationsInMesh ( ( ( 0.005 0.005 0.005 ) solid ) ( ( 0.001 0.001 0.001 ) air ) );
+    locationsInMesh ( ( ( 0.005 0.005 0.005 ) solid ) ( ( 0.001 0.001 0.001 ) air ) ( ( -0.001 0.001 0.001 ) solid_walls_xmin ) ( ( 0.0105 0.001 0.001 ) solid_walls_xmax ) );
 }
 
 snapControls
